@@ -1,0 +1,144 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.page { padding: 1.5rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.25rem; }
+.card.clean { border: 2px solid #378ADD; }
+.card-header { font-size: 11px; font-weight: 500; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem; }
+.card-title { font-size: 15px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 1rem; }
+.tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 20px; margin-bottom: 0.75rem; }
+.tag.bad { background: #FCEBEB; color: #A32D2D; }
+.tag.good { background: #E6F1FB; color: #185FA5; }
+.form-group { margin-bottom: 0.75rem; }
+label { display: block; font-size: 13px; color: var(--color-text-secondary); margin-bottom: 4px; }
+input { width: 100%; height: 36px; padding: 0 10px; font-size: 14px; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); background: var(--color-background-primary); color: var(--color-text-primary); }
+input:focus { outline: none; box-shadow: 0 0 0 2px #378ADD44; }
+.btn { width: 100%; height: 36px; margin-top: 0.5rem; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); background: transparent; color: var(--color-text-primary); font-size: 14px; cursor: pointer; }
+.btn:hover { background: var(--color-background-secondary); }
+.btn.primary { background: #185FA5; color: #fff; border-color: #185FA5; }
+.btn.primary:hover { background: #0C447C; }
+.divider { height: 1px; background: var(--color-border-tertiary); margin: 1rem 0; }
+.note { font-size: 11px; color: var(--color-text-tertiary); margin-top: 4px; }
+.section-label { font-size: 12px; font-weight: 500; color: var(--color-text-secondary); margin: 1.5rem 0 0.75rem; padding-bottom: 4px; border-bottom: 0.5px solid var(--color-border-tertiary); }
+</style>
+
+<div class="page">
+  <div class="section-label">Flawed forms — autofill stress tests</div>
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-header">Form 1</div>
+      <div class="card-title">Typos in field names</div>
+      <span class="tag bad">misspelled attributes</span>
+      <form action="#" method="post">
+        <div class="form-group">
+          <label>Emal Adress</label>
+          <input type="text" name="emial" placeholder="Enter emal" autocmplete="off">
+        </div>
+        <div class="form-group">
+          <label>Passwrod</label>
+          <input type="password" name="pasword" placeholder="Your passwrod" autcomplete="current-pasword">
+        </div>
+        <button type="submit" class="btn">Sing In</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Form 2</div>
+      <div class="card-title">Missing labels entirely</div>
+      <span class="tag bad">no &lt;label&gt; elements</span>
+      <form action="#" method="post">
+        <div class="form-group">
+          <input type="text" name="u" placeholder="Username or email" style="margin-top:4px;">
+        </div>
+        <div class="form-group">
+          <input type="password" name="p" placeholder="Password">
+        </div>
+        <div class="form-group">
+          <input type="password" name="p2" placeholder="Confirm password">
+        </div>
+        <button type="submit" class="btn">Go</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Form 3</div>
+      <div class="card-title">Formulario en Español</div>
+      <span class="tag bad">non-english, no autocomplete</span>
+      <form action="#" method="post">
+        <div class="form-group">
+          <label>Correo electrónico</label>
+          <input type="text" name="correo" placeholder="tu@correo.com">
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" name="contrasena" placeholder="Ingresa tu contraseña">
+        </div>
+        <div class="form-group" style="display:flex;align-items:center;gap:8px;">
+          <input type="checkbox" id="rec" name="recordarme" style="width:auto;height:auto;">
+          <label for="rec" style="margin:0;font-size:13px;">Recordarme</label>
+        </div>
+        <button type="submit" class="btn">Iniciar sesión</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Form 4</div>
+      <div class="card-title">Obfuscated field names</div>
+      <span class="tag bad">generic ids, no autocomplete hints</span>
+      <form action="#" method="post" id="frm_a7x9">
+        <div class="form-group">
+          <label for="field_1">Account</label>
+          <input type="text" id="field_1" name="field_a" placeholder="Account identifier">
+        </div>
+        <div class="form-group">
+          <label for="field_2">Secret</label>
+          <input type="text" id="field_2" name="field_b" placeholder="••••••••">
+        </div>
+        <p class="note">* Field names randomized on each load</p>
+        <button type="submit" class="btn">Access Account</button>
+      </form>
+    </div>
+
+  </div>
+
+  <div class="section-label" style="margin-top:1.5rem;">Clean form — reference implementation</div>
+  <div style="max-width:340px;">
+    <div class="card clean">
+      <div class="card-header">Form 5</div>
+      <div class="card-title">Sign in to your account</div>
+      <span class="tag good">semantic HTML + correct autocomplete</span>
+      <form action="#" method="post" id="login-form">
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            autocomplete="username email"
+            placeholder="you@example.com"
+            required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            autocomplete="current-password"
+            placeholder="Enter your password"
+            required>
+        </div>
+        <div class="form-group" style="display:flex;align-items:center;gap:8px;">
+          <input type="checkbox" id="remember" name="remember" style="width:auto;height:auto;">
+          <label for="remember" style="margin:0;font-size:13px;color:var(--color-text-secondary);">Remember me</label>
+        </div>
+        <button type="submit" class="btn primary" style="margin-top:0.75rem;">Sign in</button>
+        <div class="divider"></div>
+        <a href="#" style="display:block;text-align:center;font-size:13px;color:#185FA5;text-decoration:none;">Forgot your password?</a>
+      </form>
+    </div>
+  </div>
+</div>
